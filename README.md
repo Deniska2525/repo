@@ -3,12 +3,12 @@
 Три работы: каждая запускается в своём Docker. Проверялись на виртуальной машине Alpine Linux.
 
 ## Подготовка
-apk add docker docker-compose git
+apk add docker docker-compose git.
 rc-update add docker default && rc-service docker start
 
 ## Проброс портов 
-8080 -> 8080 / TCP
-20080 -> 80 / TCP
+8080 -> 8080 / TCP.
+20080 -> 80 / TCP.
 
 ## 01-nginx: собственная страница в nginx
 Образ на базе nginx:alpine со своей стартовой страницей (index.html + картинка).
