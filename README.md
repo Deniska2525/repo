@@ -16,7 +16,7 @@ rc-service docker start
 - 20080 -> 80 / TCP
 
 ## 01-nginx: собственная страница в nginx
-Образ на базе nginx:alpine со своей стартовой страницей (index.html + картинка).
+Образ на базе nginx:alpine со своей стартовой страницей (index.html).
 
 ```sh
 cd 01-nginx
