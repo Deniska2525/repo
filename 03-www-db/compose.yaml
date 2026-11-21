@@ -1,0 +1,54 @@
+services:
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/conf:/etc/nginx
+      - ./app:/app
+    depends_on:
+      - php
+  php:
+    container_name: php
+    build: ./php-fpm
+    volumes:
+      - ./php-fpm/conf:/etc/php85
+      - ./app:/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+      pgsql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+  mysql:
+    container_name: db-mysql
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-psecret"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+  pgsql:
+    container_name: db-pgsql
+    image: postgres:17
+    environment:
+      POSTGRES_PASSWORD: secret
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  redis:
+    container_name: db-redis
+    image: redis:7
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
