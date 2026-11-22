@@ -1,0 +1,11 @@
+{
+  "name": "kollatz",
+  "version": "1.0.0",
+  "description": "Гипотеза Коллатца: Node.js + Redis",
+  "main": "server.js",
+  "private": true,
+  "dependencies": {
+    "redis": "^4.7.0"
+  }
+}
+

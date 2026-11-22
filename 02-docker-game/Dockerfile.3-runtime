@@ -1,5 +1,6 @@
 # Подход 3: игра собирается при СТАРТЕ контейнера.
-
+# В образе nginx, node, pnpm и исходники; при запуске команда CMD ставит зависимости,
+# собирает игру, копирует её в nginx и запускает его. Пока сборка идёт, сайт не отвечает.
 FROM nginx:alpine
 RUN apk add --no-cache nodejs npm && npm install -g pnpm
 ENV HUSKY=0 CI=true
