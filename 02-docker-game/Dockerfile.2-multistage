@@ -1,12 +1,9 @@
 # Подход 2: игра собирается при сборке образа (multi-stage).
-# В итоговом образе только nginx и статика — node, pnpm и исходников там нет.
 FROM node:22-alpine AS build
 RUN npm install -g pnpm
 ENV HUSKY=0 CI=true
 WORKDIR /zigzag
 COPY zigzag/ /zigzag/
-# pnpm 10/11 может вернуть ERR_PNPM_IGNORED_BUILDS (postinstall esbuild) — для сборки это не важно,
-# поэтому после install стоит ";" а не "&&"; если зависимости не встали, упадёт pnpm build.
 RUN pnpm install --frozen-lockfile --config.strict-dep-builds=false ; pnpm build
 
 FROM nginx:alpine
